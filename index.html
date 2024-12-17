@@ -1,55 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Meta tags for character set and responsive behavior -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fun Fact Generator</title>
-    <!-- Internal CSS for styling the page -->
     <style>
         body {
-            font-family: Arial, sans-serif; /* Sets the font for the page */
-            display: flex; /* Uses flexbox for centering content */
-            justify-content: center; /* Centers content horizontally */
-            align-items: center; /* Centers content vertically */
-            height: 100vh; /* Full viewport height */
-            margin: 0; /* Removes default margin */
-            background-color: #f4f4f9; /* Light gray background color */
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-size: cover;
+            transition: background-image 0.5s ease-in-out;
         }
 
         .container {
-            text-align: center; /* Centers the text inside the container */
-            padding: 20px; /* Adds padding inside the container */
-            border: 1px solid #ccc; /* Adds a border around the container */
-            border-radius: 8px; /* Rounds the corners of the border */
-            background-color: #fff; /* White background for the container */
+            text-align: center;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease-in-out;
         }
 
         button {
-            padding: 10px 20px; /* Adds padding inside the button */
-            font-size: 16px; /* Sets the font size of the button text */
-            cursor: pointer; /* Changes the cursor to a pointer when hovering over the button */
-            background-color: #007bff; /* Blue background color for the button */
-            color: white; /* White text color */
-            border: none; /* No border */
-            border-radius: 5px; /* Rounded corners for the button */
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
 
         button:hover {
-            background-color: #0056b3; /* Darker blue background on hover */
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        #fact {
+            opacity: 0;
+            transition: opacity 2s ease-in-out;
+        }
+
+        .visible {
+            opacity: 1;
         }
     </style>
 </head>
 <body>
-    <!-- Container for the fun fact generator elements -->
     <div class="container">
-        <h1>Fun Fact Generator</h1> <!-- Title of the generator -->
-        <p id="fact"></p> <!-- Paragraph where the fact will be displayed -->
-        <button onclick="generateFact()">Generate Fact</button> <!-- Button to generate a new fact -->
+        <h1>Fun Fact Generator</h1>
+        <p id="fact"></p>
+        <button onclick="generateFact()">Generate Fact</button>
     </div>
-    <!-- JavaScript to handle the fun fact generation -->
     <script>
-        // Array containing the fun facts
         const facts = [
             "Earth is the third planet from the Sun and the only astronomical object known to harbor life.",
             "About 71% of Earth's surface is covered by water, mostly in the form of oceans.",
@@ -63,10 +72,25 @@
             "Earth orbits the Sun at an average distance of about 93 million miles (150 million kilometers) in what is known as the habitable zone."
         ];
 
-        // Function to generate and display a random fact
         function generateFact() {
-            const randomIndex = Math.floor(Math.random() * facts.length); // Generates a random index
-            document.getElementById('fact').innerText = facts[randomIndex]; // Displays the fact at the random index
+            const factElement = document.getElementById('fact');
+            const randomIndex = Math.floor(Math.random() * facts.length);
+            factElement.classList.remove('visible');
+            setTimeout(() => {
+                factElement.innerText = facts[randomIndex];
+                factElement.classList.add('visible');
+            }, 200); // delay to allow opacity transition
+            changeBackground();
+        }
+
+        function changeBackground() {
+            const images = [
+                'https://example.com/image1.jpg',
+                'https://example.com/image2.jpg',
+                'https://example.com/image3.jpg'
+            ];
+            const randomImgIndex = Math.floor(Math.random() * images.length);
+            document.body.style.backgroundImage = `url('${images[randomImgIndex]}')`;
         }
     </script>
 </body>
