@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta tags for character set and responsive behavior -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fun Fact Generator</title>
+    <!-- Internal CSS for styling the page -->
+    <style>
+        body {
+            font-family: Arial, sans-serif; /* Sets the font for the page */
+            display: flex; /* Uses flexbox for centering content */
+            justify-content: center; /* Centers content horizontally */
+            align-items: center; /* Centers content vertically */
+            height: 100vh; /* Full viewport height */
+            margin: 0; /* Removes default margin */
+            background-color: #f4f4f9; /* Light gray background color */
+        }
+
+        .container {
+            text-align: center; /* Centers the text inside the container */
+            padding: 20px; /* Adds padding inside the container */
+            border: 1px solid #ccc; /* Adds a border around the container */
+            border-radius: 8px; /* Rounds the corners of the border */
+            background-color: #fff; /* White background for the container */
+        }
+
+        button {
+            padding: 10px 20px; /* Adds padding inside the button */
+            font-size: 16px; /* Sets the font size of the button text */
+            cursor: pointer; /* Changes the cursor to a pointer when hovering over the button */
+            background-color: #007bff; /* Blue background color for the button */
+            color: white; /* White text color */
+            border: none; /* No border */
+            border-radius: 5px; /* Rounded corners for the button */
+        }
+
+        button:hover {
+            background-color: #0056b3; /* Darker blue background on hover */
+        }
+    </style>
+</head>
+<body>
+    <!-- Container for the fun fact generator elements -->
+    <div class="container">
+        <h1>Fun Fact Generator</h1> <!-- Title of the generator -->
+        <p id="fact"></p> <!-- Paragraph where the fact will be displayed -->
+        <button onclick="generateFact()">Generate Fact</button> <!-- Button to generate a new fact -->
+    </div>
+    <!-- JavaScript to handle the fun fact generation -->
+    <script>
+        // Array containing the fun facts
+        const facts = [
+            "Earth is the third planet from the Sun and the only astronomical object known to harbor life.",
+            "About 71% of Earth's surface is covered by water, mostly in the form of oceans.",
+            "Earth's atmosphere is composed primarily of nitrogen (78%) and oxygen (21%) with trace amounts of other gases.",
+            "The Earth's core is made primarily of iron and nickel and has a solid inner part surrounded by a liquid outer core.",
+            "Earth has a strong magnetic field, which is responsible for deflecting solar wind and protecting the atmosphere.",
+            "The Earth is approximately 4.54 billion years old, based on evidence from radiometric age dating.",
+            "Earth's rotation is gradually slowing down, which lengthens our days over long periods of time.",
+            "The highest point on Earth is Mount Everest, which reaches 8,848 meters (29,029 feet) above sea level.",
+            "The lowest natural point on Earth is the Challenger Deep in the Mariana Trench, at approximately 10,994 meters (36,070 feet) below sea level.",
+            "Earth orbits the Sun at an average distance of about 93 million miles (150 million kilometers) in what is known as the habitable zone."
+        ];
+
+        // Function to generate and display a random fact
+        function generateFact() {
+            const randomIndex = Math.floor(Math.random() * facts.length); // Generates a random index
+            document.getElementById('fact').innerText = facts[randomIndex]; // Displays the fact at the random index
+        }
+    </script>
+</body>
+</html>
