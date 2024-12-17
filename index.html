@@ -5,6 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fun Fact Generator</title>
     <style>
+        :root {
+            /* Light theme colors */
+            --background-color: #f4f4f9;
+            --text-color: #333;
+            --container-bg-color: #fff;
+            --button-bg-color: #007bff;
+            --button-hover-bg-color: #0056b3;
+
+            /* Dark theme colors */
+            --background-color-dark: #333;
+            --text-color-dark: #f4f4f9;
+            --container-bg-color-dark: #424242;
+            --button-bg-color-dark: #0056b3;
+            --button-hover-bg-color-dark: #003a75;
+        }
+
         body {
             font-family: Arial, sans-serif;
             display: flex;
@@ -12,8 +28,9 @@
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-size: cover;
-            transition: background-image 0.5s ease-in-out;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            transition: background-color 0.5s ease, color 0.5s ease;
         }
 
         .container {
@@ -21,25 +38,25 @@
             padding: 20px;
             border: 1px solid #ccc;
             border-radius: 8px;
-            background-color: rgba(255, 255, 255, 0.8);
+            background-color: var(--container-bg-color);
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease-in-out;
+            transition: background-color 0.5s ease;
         }
 
         button {
             padding: 10px 20px;
             font-size: 16px;
             cursor: pointer;
-            background-color: #007bff;
+            background-color: var(--button-bg-color);
             color: white;
             border: none;
             border-radius: 5px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            transition: background-color 0.3s ease;
         }
 
         button:hover {
-            background-color: #0056b3;
-            transform: scale(1.05);
+            background-color: var(--button-hover-bg-color);
         }
 
         #fact {
@@ -50,6 +67,13 @@
         .visible {
             opacity: 1;
         }
+
+        .toggle-mode {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -57,6 +81,7 @@
         <h1>Fun Fact Generator</h1>
         <p id="fact"></p>
         <button onclick="generateFact()">Generate Fact</button>
+        <div class="toggle-mode" onclick="toggleMode()">Switch Mode</div>
     </div>
     <script>
         const facts = [
@@ -80,17 +105,39 @@
                 factElement.innerText = facts[randomIndex];
                 factElement.classList.add('visible');
             }, 200); // delay to allow opacity transition
-            changeBackground();
         }
 
-        function changeBackground() {
-            const images = [
-                'https://example.com/image1.jpg',
-                'https://example.com/image2.jpg',
-                'https://example.com/image3.jpg'
-            ];
-            const randomImgIndex = Math.floor(Math.random() * images.length);
-            document.body.style.backgroundImage = `url('${images[randomImgIndex]}')`;
+        function toggleMode() {
+            const body = document.body;
+            body.classList.toggle('dark-mode');
+            updateColors();
+        }
+
+        function updateColors() {
+            const body = document.body;
+            if (body.classList.contains('dark-mode')) {
+                body.style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--background-color-dark');
+                body.style.color = getComputedStyle(document.documentElement).getPropertyValue('--text-color-dark');
+                document.querySelector('.container').style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--container-bg-color-dark');
+                document.querySelector('button').style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--button-bg-color-dark');
+                document.querySelector('button').addEventListener('mouseover', function() {
+                    this.style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--button-hover-bg-color-dark');
+                });
+                document.querySelector('button').addEventListener('mouseout', function() {
+                    this.style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--button-bg-color-dark');
+                });
+            } else {
+                body.style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--background-color');
+                body.style.color = getComputedStyle(document.documentElement).getPropertyValue('--text-color');
+                document.querySelector('.container').style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--container-bg-color');
+                document.querySelector('button').style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--button-bg-color');
+                document.querySelector('button').addEventListener('mouseover', function() {
+                    this.style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--button-hover-bg-color');
+                });
+                document.querySelector('button').addEventListener('mouseout', function() {
+                    this.style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--button-bg-color');
+                });
+            }
         }
     </script>
 </body>
